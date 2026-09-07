@@ -4,6 +4,8 @@ import java.util.List;
 
 public class BankService {
     private List<Account> accounts = new ArrayList<>();
+    private int transactionCounter = 1;
+
     public boolean accountExists(int accountNumber) {
         for(Account account : accounts) {
             if(account.getAccountNumber() == accountNumber) {
@@ -19,5 +21,61 @@ public class BankService {
         }
         accounts.add(account);
         System.out.println("Account created successfully.");
+    }
+    public Account findAccount(int accountNumber) {
+        for(Account account : accounts) {
+            if(account.getAccountNumber() == accountNumber) {
+                return account;
+            }
+        }
+        return null;
+    }
+    public void viewAccount(int accountNumber) {
+        Account account = findAccount(accountNumber);
+        if(account == null) {
+            System.out.println("account not found");
+            return;
+        }
+        System.out.println("Account Number: " + account.getAccountNumber());
+        System.out.println("Customer Name: " + account.getCustomerName());
+        System.out.println("Account Type: " + account.getAccountType());
+        System.out.println("Balance: " + account.getBalance());
+    }
+    public void deposit(int accountNumber, double amount) {
+        Account account = findAccount(accountNumber);
+        if(account == null) {
+            System.out.println("account not found");
+            return;
+        }
+        account.deposit(amount, transactionCounter);
+        transactionCounter++;
+        System.out.println("deposited successfully");
+        System.out.println("updated balance: "+account.getBalance());
+    }
+    public void withdraw(int accountNumber, double amount) {
+        Account account = findAccount(accountNumber);
+        if(account == null) {
+            System.out.println("account not found");
+            return;
+        }
+        if(!account.withdraw(amount, transactionCounter)) {
+                System.out.println("insufficient balance");
+                return;
+        }
+        
+        transactionCounter++;
+        System.out.println("withdraw successful");
+        System.out.println("updated balance: "+account.getBalance());
+    }
+    public void checkBalance(int accountNumber) {
+        Account account = findAccount(accountNumber);
+        if(account == null) {
+             System.out.println("account not found");
+            return;
+        }
+        System.out.println("balance: "+account.getBalance());
+    }
+    public void showTransactions(int accountNumber) {
+        
     }
 }
