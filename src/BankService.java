@@ -1,4 +1,4 @@
-package src;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,7 +83,7 @@ public class BankService {
             System.out.println("Withdrawal amount must be greater than 0.");
             return;
         }
-        
+
         if(!account.withdraw(amount, transactionCounter)) {
                 System.out.println("insufficient balance");
                 return;
