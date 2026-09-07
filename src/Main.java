@@ -29,7 +29,14 @@ public class Main {
                 String customerName = sc.nextLine();
                 System.out.print("Enter Account Type: ");
                 String accountType = sc.nextLine();
-                Account account = new Account(accountNumber, customerName, accountType);
+                WithdrawalStrategy strategy;
+                if(accountType.equalsIgnoreCase("SAVINGS")) {
+                    strategy = new SavingsWithdrawalStrategy();
+                }
+                else {
+                    strategy = new CurrentWithdrawalStrategy();
+                }
+                Account account = new Account(accountNumber, customerName, accountType, strategy);
                 service.addAccount(account);
                 break;
             }

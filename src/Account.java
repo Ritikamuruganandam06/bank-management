@@ -7,14 +7,15 @@ public class Account {
     private String accountType;
     private double balance;
     private List<Transaction> transactions;
+    private WithdrawalStrategy withdrawalStrategy;
 
-    public Account(int accountNumber, String customerName, String accountType) {
+    public Account(int accountNumber, String customerName, String accountType, WithdrawalStrategy withdrawalStrategy) {
         this.accountNumber = accountNumber;
         this.customerName = customerName;
         this.accountType = accountType;
         this.balance = 0;
         this.transactions = new ArrayList<>();
-        
+        this.withdrawalStrategy = withdrawalStrategy;
     }
     public int getAccountNumber() {
         return accountNumber;
@@ -34,16 +35,16 @@ public class Account {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
-    }
+    // public void setAccountType(String accountType) {
+    //     this.accountType = accountType;
+    // }
     public void deposit(double amount, int transactionId) {
         balance += amount;
         Transaction transaction = new Transaction(transactionId, "DEPOSIT", amount);
         transactions.add(transaction);
     }
     public boolean withdraw(double amount, int transactionId) {
-        if(amount > balance) {
+        if(!withdrawalStrategy.canWithdraw(balance, amount)) {
             return false;
         }
         balance -= amount;
