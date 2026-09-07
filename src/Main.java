@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,6 +17,7 @@ public class Main {
         System.out.println("7. Delete Account");
         System.out.println("8. Exit");
 
+        try {
         System.out.print("Enter your choice: ");
         int choice = sc.nextInt();
         switch(choice) {
@@ -81,6 +83,10 @@ public class Main {
             }
         
         }
+    } catch(InputMismatchException e) {
+            System.out.println("Please enter a valid number.");
+            sc.nextLine();
+    }
 
 }
     }
