@@ -51,5 +51,7 @@ public class Account {
         transactions.add(transaction);
         return true;
     }
-
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
 }
