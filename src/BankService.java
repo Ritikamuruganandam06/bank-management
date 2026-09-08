@@ -31,6 +31,12 @@ public class BankService {
         System.out.println("Account type cannot be empty.");
         return;
     }
+
+    if (!account.getAccountType().equalsIgnoreCase("SAVINGS") &&
+    !account.getAccountType().equalsIgnoreCase("CURRENT")) {
+    System.out.println("Invalid account type. Use SAVINGS or CURRENT.");
+    return;
+    }
         if(accountExists(account.getAccountNumber())) {
             System.out.println("Account number already exists.");
             return;
@@ -85,7 +91,7 @@ public class BankService {
         }
 
         if(!account.withdraw(amount, transactionCounter)) {
-                System.out.println("insufficient balance");
+                System.out.println("Withdrawal not allowed");
                 return;
         }
         
